@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const Item = new Schema({
   name: {type: String},
-  price: {type: Number}
+  price: {type: Number},
+  image: {type: String}
 }, {
   collection: 'items'
 });

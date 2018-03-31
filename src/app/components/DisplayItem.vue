@@ -12,6 +12,7 @@
           <th>ID</th>
           <th>Nombre</th>
           <th>Precio</th>
+          <th>Imagen</th>
           <th>Operaciones</th>
         </tr>
       </thead>
@@ -20,6 +21,9 @@
           <td>{{item._id}}</td>
           <td>{{item.name}}</td>
           <td>{{item.price}}</td>
+          <td>
+            <a href="" :data-featherlight="'uploads/'+item.image"><img :src="'uploads/'+item.image" alt="" width="150px"></a>
+          </td>
           <td>
             <router-link :to="{ name:'EditItem', params:{id: item._id} }" class="btn btn-dark">
               Actualizar

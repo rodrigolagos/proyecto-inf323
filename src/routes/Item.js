@@ -1,7 +1,19 @@
 const express = require('express');
 const router = express.Router();
+var path = require('path');
 
 const Item = require('../models/Item');
+
+var multer  = require('multer');
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'src/public/uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname))
+  }
+});
+var upload = multer({ storage: storage });
 
 // Get all items
 router.get('/', (req, res) => {
@@ -24,10 +36,13 @@ router.get('/:id', (req, res) => {
 })
 
 // Create item
-router.post('/', (req, res) => {
+router.post('/', upload.single('image'), (req, res) => {
   const item = new Item();
   item.name = req.body.name;
   item.price = req.body.price;
+
+  item.image = req.file.filename;
+
   item.save()
     .then(item => {
       res.status(200).json({message: 'Item agregado.'})
