@@ -53,13 +53,18 @@ router.post('/', upload.single('image'), (req, res) => {
 })
 
 // Update item
-router.put('/:id', (req, res, next) => {
+router.put('/:id', upload.single('image'), (req, res, next) => {
   Item.findById(req.params.id, (err, item) => {
     if (!item) {
       return next(new Error('No se pudo cargar el documento.'))
     } else {
       item.name = req.body.name
       item.price = req.body.price
+
+      if (req.file !== undefined) {
+        item.image = req.file.filename
+      }
+
       item.save()
         .then(item => {
           res.json('Actualizacion completa.')

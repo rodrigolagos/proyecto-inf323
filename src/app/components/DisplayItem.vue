@@ -6,10 +6,9 @@
 
     <h3>Mostrando Items</h3>
 
-    <table class="table table-hover table-bordered">
+    <table class="table table-hover table-bordered table-striped">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Nombre</th>
           <th>Precio</th>
           <th>Imagen</th>
@@ -18,9 +17,8 @@
       </thead>
       <tbody>
         <tr v-for="item in items">
-          <td>{{item._id}}</td>
           <td>{{item.name}}</td>
-          <td>{{item.price}}</td>
+          <td align="center">{{item.price}}</td>
           <td>
             <a href="" :data-featherlight="'uploads/'+item.image"><img :src="'uploads/'+item.image" alt="" width="150px"></a>
           </td>
@@ -28,7 +26,10 @@
             <router-link :to="{ name:'EditItem', params:{id: item._id} }" class="btn btn-dark">
               Actualizar
             </router-link>
-            <a href="" class="btn btn-danger" v-on:click="deleteItem(item)">Eliminar</a>
+            <a href="" class="btn btn-danger" v-on:click="deleteItem(item)">
+              <span class="glyphicon glyphicon-trash"></span>
+              Eliminar
+            </a>
           </td>
         </tr>
       </tbody>
