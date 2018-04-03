@@ -28,7 +28,8 @@ router.get('/', (req, res) => {
 // Get item
 router.get('/:id', (req, res) => {
   Item.findById(req.params.id, (err, item) => {
-    if (err) {throw err}
+    if (err) return res.status(500).send({message: err.message})
+    if (!item) return res.status(500).send({message: 'No se pudo cargar el documento.'})
     else {
       res.json(item)
     }
@@ -58,8 +59,14 @@ router.put('/:id', upload.single('image'), (req, res, next) => {
     if (!item) {
       return next(new Error('No se pudo cargar el documento.'))
     } else {
-      item.name = req.body.name
-      item.price = req.body.price
+
+      if (req.body.name !== undefined) {
+        item.name = req.body.name
+      }
+
+      if (req.body.price !== undefined) {
+        item.price = req.body.price
+      }
 
       if (req.file !== undefined) {
         item.image = req.file.filename
@@ -67,7 +74,7 @@ router.put('/:id', upload.single('image'), (req, res, next) => {
 
       item.save()
         .then(item => {
-          res.json('Actualizacion completa.')
+          res.status(200).json({message: 'Actualizacion completa.'})
         })
         .catch(err => {
           res.status(500).send('No se pudo actualizar.')
@@ -81,7 +88,7 @@ router.delete('/:id', (req, res) => {
   Item.findByIdAndRemove(req.params.id, (err, item) => {
     if (err) {return res.status(500).send({message: err.message})}
     else {
-      res.json('Item eliminado.')
+      res.status(200).json({message: 'Item eliminado.'})
     }
   })
 })

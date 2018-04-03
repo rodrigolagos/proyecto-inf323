@@ -4,17 +4,21 @@ const cors = require('cors');
 const express = require('express');
 const app = express();
 
-//BORRAR. Cambiar cuando se cambie el modelo de item a archivos
 const itemRoutes = require('./routes/Item');
 
 const mongoose = require('mongoose');
-//BORRAR. Cambiar por lo siguiente:
-// mongoose.connect('mongodb://localhost/proyecto1-inf323')
-//   .then( () => console.log('Conexión establecida a la base de datos') )
-//   .catch(err => console.log('No se ha podido conectar a la base de datos:', err));
+
 mongoose.connect('mongodb://127.0.0.1:27017/proyecto1-inf323')
   .then( () => console.log('Conexión establecida a la base de datos') )
   .catch(err => console.log('No se ha podido conectar a la base de datos:', err));
+
+/* Se crea un item de prueba, para manipularlo en las pruebas unitarias */
+var conn = mongoose.connection;
+var ObjectID = require('mongodb').ObjectID;
+var item = {_id: new ObjectID("5ac3493d074d4f463558bfdf"),name: 'Creado desde server',price: 100};
+conn.collection('items').findOneAndDelete({"_id" : ObjectID("5ac3493d074d4f463558bfdf")})
+conn.collection('items').insert(item)
+/* ******************************************************************** */
 
 // Settings
 app.set('port', process.env.PORT || 3000)
