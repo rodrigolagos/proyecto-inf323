@@ -29,7 +29,7 @@ Clonar el repositorio
 
 Posicionarse en la carpeta del proyecto
 ```
-cd proyecto-inf323
+    cd proyecto-inf323
 ```
 
 Instalar dependencias y ejecutar el proyecto
