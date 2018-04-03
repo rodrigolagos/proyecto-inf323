@@ -39,8 +39,10 @@ Instalar dependencias y ejecutar el proyecto
     npm start
 ```
 
-## Pruebas unitarias
+## Visualización
+Visualizar el proyecto en el navegador con la dirección http://localhost:3000
 
+## Pruebas unitarias
 Ejecutar las pruebas unitarias
 ```
     npm test
