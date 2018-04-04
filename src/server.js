@@ -8,7 +8,7 @@ const itemRoutes = require('./routes/Item');
 
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/proyecto1-inf323')
+mongoose.connect('mongodb://mongo:27017/proyecto1-inf323')
   .then( () => console.log('Conexión establecida a la base de datos') )
   .catch(err => console.log('No se ha podido conectar a la base de datos:', err));
 

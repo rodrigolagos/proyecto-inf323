@@ -1,0 +1,38 @@
+version: "3.3"
+
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    command: mongod --port 27017 --bind_ip_all
+    volumes:
+      - mongodata:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - all
+
+  app:
+    container_name: app
+    restart: always
+    build: .
+    command: sh -c 'npm install; npm start'
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./src/app:/app
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    networks:
+      - all
+    environment:
+      MONGO_URI: "mongodb://mongo:27017/proyecto1-inf323"
+
+volumes:
+  mongodata:
+
+networks:
+  all:
+
