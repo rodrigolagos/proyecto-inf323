@@ -3,7 +3,7 @@ version: "3.3"
 services:
   mongo:
     container_name: mongo
-    image: mongo:latest
+    image: mongo:3.6.3
     command: mongod --port 27017 --bind_ip_all
     volumes:
       - mongodata:/data/db
@@ -27,8 +27,14 @@ services:
       - mongo
     networks:
       - all
-    environment:
-      MONGO_URI: "mongodb://mongo:27017/proyecto1-inf323"
+    #environment:
+    #  MONGO_URI: "mongodb://mongo:27017/proyecto1-inf323"
+
+  #webpack:
+  #  container_name: webpack-watch
+  #  build: .
+  #  command: sh -c 'npm run webpack:watch'
+
 
 volumes:
   mongodata:
